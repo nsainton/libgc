@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 13:33:59 by nsainton          #+#    #+#             */
-/*   Updated: 2023/05/08 14:32:03 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/05/08 15:02:20 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,14 @@ int	gc_add(void *ptr)
 	t_gc	*collector;
 	int		error;
 
-	//EPRINT
 	collector = getgc();
 	error = 0;
-	/*
-	ft_dprintf(STDERR_FILENO, "This is the len : %u\n", collector->len);
-	ft_dprintf(STDERR_FILENO, "This is the size : %u\n", collector->size);
-	*/
 	if (collector->len == collector->size)
 		error = gc_realloc();
 	if (error)
 		return (error);
 	*(collector->memzones + collector->len) = ptr;
 	collector->len ++;
-	/*
-	ft_dprintf(STDERR_FILENO, "This is the new len : %u\n", collector->len);
-	ft_dprintf(STDERR_FILENO, "This is the new size : %u\n", collector->size);
-	LPRINT
-	*/
 	return (COLLECTOR_NO_ERROR);
 }
 
