@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 13:07:31 by nsainton          #+#    #+#             */
-/*   Updated: 2023/05/08 14:20:05 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/05/08 15:12:50 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # define TRASH_SIZE 50
 
-enum e_errors
+enum e_collector_errors
 {
 	COLLECTOR_NO_ERROR,
 	COLLECTOR_ALLOCATION_ERROR = 20,
