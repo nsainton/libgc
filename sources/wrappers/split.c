@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libgc.h"
 
 char	**gc_split(t_cchar *s, char c)
 {

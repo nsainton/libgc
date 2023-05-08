@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libgc.h"
 
 void	free_array_size(void **array, t_csizet size)
 {	

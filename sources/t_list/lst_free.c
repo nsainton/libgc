@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libgc.h"
 
 void	gc_lstdelone(t_list *lst, void (*del) (void *))
 {

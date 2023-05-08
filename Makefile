@@ -6,7 +6,7 @@
 #    By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/23 06:01:21 by nsainton          #+#    #+#              #
-#    Updated: 2023/05/08 13:06:11 by nsainton         ###   ########.fr        #
+#    Updated: 2023/05/08 14:25:08 by nsainton         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ NAME= libgc.a
 
 SRCS_DIR= sources
 
-SRCS_NAMES= $(subst $(SRCS_DIR)/,, $(wildcard $(SRCS_DIR)/*))
+SRCS_SUBDIRS:= $(shell find $(SRCS_DIR)/ -type d)
+
+SRCS_NAMES:= $(subst $(SRCS_DIR)/,, $(foreach dir, $(SRCS_SUBDIRS), $(wildcard $(dir)/*.c)))
 
 SRCS= $(addprefix $(SRCS_DIR)/,$(SRCS_NAMES))
 
@@ -91,7 +93,8 @@ define compiled_header
 endef
 export compiled_header
 
-all:
+all: 
+	echo $(SRCS_NAMES)
 	$(MAKE) $(NAME)
 
 $(NAME): $(OBJS)
@@ -101,7 +104,8 @@ $(NAME): $(OBJS)
 	echo "$$compiled_header"
 	echo "$(END)"
 
-$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(LFT_DIR)
+	echo $@
 	[ -d $(@D) ] || $(MK) $(@D)
 	arg="$$(dirname $(DEPS_DIR)/$*)"; \
 	[ -d $$arg ] || $(MK) $$arg

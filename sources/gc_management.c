@@ -6,11 +6,11 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 13:33:59 by nsainton          #+#    #+#             */
-/*   Updated: 2023/04/17 14:26:48 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/05/08 14:32:03 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libgc.h"
 
 int	gc_add(void *ptr)
 {
@@ -35,7 +35,7 @@ int	gc_add(void *ptr)
 	ft_dprintf(STDERR_FILENO, "This is the new size : %u\n", collector->size);
 	LPRINT
 	*/
-	return (NO_ERROR);
+	return (COLLECTOR_NO_ERROR);
 }
 
 int	gc_replace(void *old_ptr, void *new_ptr)
@@ -56,7 +56,7 @@ int	gc_replace(void *old_ptr, void *new_ptr)
 	}
 	if (index == collector->len)
 		return (NOT_IN_COLLECTOR);
-	return (NO_ERROR);
+	return (COLLECTOR_NO_ERROR);
 }
 
 int	gc_add_array(void **array)
@@ -64,16 +64,16 @@ int	gc_add_array(void **array)
 	size_t	index;
 
 	if (gc_add(array))
-		return (ADD_ERROR);
+		return (COLLECTOR_ADD_ERROR);
 	index = 0;
 	while (*(array + index))
 	{
 		if (gc_add(*(array + index)))
 		{
 			remove_nodes(index + 1);
-			return (ADD_ERROR);
+			return (COLLECTOR_ADD_ERROR);
 		}
 		index ++;
 	}
-	return (NO_ERROR);
+	return (COLLECTOR_NO_ERROR);
 }

@@ -6,11 +6,11 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 10:53:57 by nsainton          #+#    #+#             */
-/*   Updated: 2023/04/17 13:34:45 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/05/08 14:20:45 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libgc.h"
 
 t_gc	*getgc(void)
 {
@@ -50,7 +50,7 @@ int	gc_realloc(void)
 	*/
 	newsize = 2 * collector->size;
 	if (newsize < collector->size)
-		return (OVERFLOW);
+		return (COLLECTOR_OVERFLOW);
 	elemsize = sizeof * collector->memzones;
 	/*
 	ft_dprintf(STDERR_FILENO, "Elem size is : %u\n", elemsize);
@@ -60,7 +60,7 @@ int	gc_realloc(void)
 	newzone = ft_realloc(collector->memzones, \
 	collector->size * elemsize, newsize * elemsize);
 	if (! newzone)
-		return (ALLOCATION_ERROR);
+		return (COLLECTOR_ALLOCATION_ERROR);
 	/*
 	ft_dprintf(STDERR_FILENO, "This is the first part of the new collector\n");
 	print_collector();
@@ -75,5 +75,5 @@ int	gc_realloc(void)
 	print_collector();
 	LPRINT
 	*/
-	return (NO_ERROR);
+	return (COLLECTOR_NO_ERROR);
 }
