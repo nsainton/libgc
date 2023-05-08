@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 17:17:28 by nsainton          #+#    #+#             */
-/*   Updated: 2023/04/25 14:28:25 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/05/08 14:55:56 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@ size_t	gc_len(void)
 {
 	t_gc	*collector;
 
-	//EPRINT
 	collector = getgc();
 	if (! collector)
 		return (0);
-	//LPRINT
 	return (collector->len);
 }
 
@@ -30,7 +28,6 @@ void	print_collector(void)
 	size_t	index;
 	size_t	size;
 
-	//EPRINT
 	collector = getgc();
 	if (! collector)
 		return ;
@@ -44,7 +41,6 @@ void	print_collector(void)
 		index ++;
 	}
 	ft_dprintf(STDERR_FILENO, "Collector Printed\n");
-	//LPRINT
 }
 
 void	*wrap_pointer(void *ptr)
