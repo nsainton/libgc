@@ -6,7 +6,7 @@
 #    By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/23 06:01:21 by nsainton          #+#    #+#              #
-#    Updated: 2023/05/08 14:55:27 by nsainton         ###   ########.fr        #
+#    Updated: 2023/05/08 17:20:51 by nsainton         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME= libgc.a
 
 SRCS_DIR= sources
 
-SRCS_SUBDIRS:= $(shell find $(SRCS_DIR)/ -type d)
+SRCS_SUBDIRS:= $(shell find $(SRCS_DIR) -type d)
 
 SRCS_NAMES:= $(subst $(SRCS_DIR)/,, $(foreach dir, $(SRCS_SUBDIRS), $(wildcard $(dir)/*.c)))
 
