@@ -6,7 +6,7 @@
 #    By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/23 06:01:21 by nsainton          #+#    #+#              #
-#    Updated: 2023/05/08 14:25:08 by nsainton         ###   ########.fr        #
+#    Updated: 2023/05/08 14:55:27 by nsainton         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,8 +93,7 @@ define compiled_header
 endef
 export compiled_header
 
-all: 
-	echo $(SRCS_NAMES)
+all:
 	$(MAKE) $(NAME)
 
 $(NAME): $(OBJS)
@@ -105,7 +104,6 @@ $(NAME): $(OBJS)
 	echo "$(END)"
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(LFT_DIR)
-	echo $@
 	[ -d $(@D) ] || $(MK) $(@D)
 	arg="$$(dirname $(DEPS_DIR)/$*)"; \
 	[ -d $$arg ] || $(MK) $$arg
