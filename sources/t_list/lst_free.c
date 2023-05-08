@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 16:32:16 by nsainton          #+#    #+#             */
-/*   Updated: 2023/04/17 16:41:02 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/05/08 15:01:36 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	gc_lstfreenodes(t_list **lst)
 
 void	gc_lstclear(t_list **lst, void (*del) (void *))
 {
-	t_list *p;
+	t_list	*p;
 	t_list	*q;
 
 	p = *lst;
@@ -58,7 +58,7 @@ void	gc_lstclear(t_list **lst, void (*del) (void *))
 
 void	gc_lstdel_front(t_list **lst, void (*del) (void *))
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	if (*lst == NULL)
 		return ;
