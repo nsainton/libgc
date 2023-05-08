@@ -6,11 +6,11 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 10:45:03 by nsainton          #+#    #+#             */
-/*   Updated: 2023/04/16 10:10:15 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/05/08 14:00:09 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libgc.h"
 
 void	*gcmalloc(size_t size)
 {
