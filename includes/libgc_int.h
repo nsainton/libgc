@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 13:07:31 by nsainton          #+#    #+#             */
-/*   Updated: 2023/05/08 15:12:50 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/05/22 16:16:52 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,15 @@ struct	s_gc
 	size_t	size;
 };
 
-typedef struct s_gc	t_gc;
+struct	s_tab
+{
+	void	*tab;
+	size_t	elemsize;
+	size_t	len;
+	size_t	size;
+};
+
+typedef struct s_gc		t_gc;
+
+typedef struct s_tab	t_tab;
 #endif

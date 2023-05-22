@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libgc.h                                            :+:      :+:    :+:   */
+/*   test.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:08:14 by nsainton          #+#    #+#             */
-/*   Updated: 2023/05/08 14:16:57 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:08:14 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,18 @@ int		gc_add(void *ptr);
 int		gc_replace(void *old_ptr, void *new_ptr);
 
 int		gc_add_array(void **array);
+
+//Functions from file : management.c
+int		add_tab(t_tab *tab, void *elem);
+
+void	delelem_tab(t_tab *tab, void (*del)(void *));
+
+void	del_tab(t_tab *tab);
+
+//Functions from file : allocation.c
+int		allocate_tab(t_tab *tab, t_csizet size, t_csizet elemsize);
+
+int		realloc_tab(t_tab *tab, t_csizet newsize);
 
 //Functions from file : gc_array.c
 void	free_array_size(void **array, t_csizet size);
