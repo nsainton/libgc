@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:17:10 by nsainton          #+#    #+#             */
-/*   Updated: 2023/05/26 13:00:49 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/05/26 13:03:23 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	realloc_tab(t_tab *tab, t_csizet newsize)
 		return (COLLECTOR_ALLOCATION_ERROR);
 	tab->tab = zones;
 	tab->size = newsize;
-	ft_bzero(zones, (newsize - tab->len) * tab->elemsize);
+	ft_bzero(zones + tab->len * tab->elemsize\
+	, (newsize - tab->len) * tab->elemsize);
 	return (COLLECTOR_NO_ERROR);
 }
