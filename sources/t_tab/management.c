@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:24:39 by nsainton          #+#    #+#             */
-/*   Updated: 2023/05/26 12:50:52 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/05/26 13:56:37 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	add_tab(t_tab *tab, void *elem)
 {
-	if (tab->len == tab->size && realloc_tab(tab, 2 * tab->size))
+	if (tab->len >= tab->size - 1 && realloc_tab(tab, 2 * tab->size))
 		return (COLLECTOR_ALLOCATION_ERROR);
 	ft_memcpy(tab->tab + tab->len * tab->elemsize, elem, tab->elemsize);
 	tab->len ++;
