@@ -6,7 +6,7 @@
 /*   By: nsainton <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 11:29:21 by nsainton          #+#    #+#             */
-/*   Updated: 2023/05/29 16:36:45 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/05/29 16:50:47 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,13 @@ void	free_from(void *node)
 	index = 0;
 	while (index < collector->len && *(collector->memzones + index) != node)
 		index ++;
+	ft_printf("We got our node : %p\n", *(collector->memzones + index));
+	ft_printf("This is the input node : %p\n", node);
+	ft_printf("This is a string that represents it : %s\n", node);
 	newlen = collector->len - index - 1;
 	index ++;
+	ft_printf("We start to free from here : %p\n", *(collector->memzones + index));
+	ft_printf("This is the string that represents our node : %s\n", *(collector->memzones + index));
 	while (index < collector->len && *(collector->memzones + index))
 	{
 		if (*(collector->memzones + index))
