@@ -14,10 +14,20 @@
 # define LIBGC_H
 # include "libgc_int.h"
 
-//Functions from file : gc_structure.c
-t_gc	*getgc(void);
+//Functions from file : allocation.c
+int		allocate_tab(t_tab *tab, t_csizet size, t_csizet elemsize);
 
-int		gc_realloc(void);
+int		realloc_tab(t_tab *tab, t_csizet newsize);
+
+//Functions from file : management.c
+int		add_tab(t_tab *tab, void *elem);
+
+void	delelem_tab(t_tab *tab, void (*del)(void *));
+
+void	del_tab(t_tab *tab);
+
+//Functions from file : split.c
+char	**gc_split(t_cchar *s, char c);
 
 //Functions from file : strs.c
 char	*gc_strdup(t_cchar *s);
@@ -28,11 +38,10 @@ char	*gc_strjoin(t_cchar *s1, t_cchar *s2);
 
 char	*gc_substr(t_cchar *s, t_uint start, size_t len);
 
-//Functions from file : split.c
-char	**gc_split(t_cchar *s, char c);
-
 //Functions from file : gc_del.c
 void	free_gc(void);
+
+void	free_from(void *node);
 
 void	free_nodes(t_csizet number);
 
@@ -46,23 +55,6 @@ int		gc_add(void *ptr);
 int		gc_replace(void *old_ptr, void *new_ptr);
 
 int		gc_add_array(void **array);
-
-//Functions from file : management.c
-int		add_tab(t_tab *tab, void *elem);
-
-void	delelem_tab(t_tab *tab, void (*del)(void *));
-
-void	del_tab(t_tab *tab);
-
-//Functions from file : allocation.c
-int		allocate_tab(t_tab *tab, t_csizet size, t_csizet elemsize);
-
-int		realloc_tab(t_tab *tab, t_csizet newsize);
-
-//Functions from file : gc_array.c
-void	free_array_size(void **array, t_csizet size);
-
-void	free_array_null(void **array);
 
 //Functions from file : gc_alloc.c
 void	*gcmalloc(size_t size);
@@ -83,6 +75,18 @@ void	gc_lstclear(t_list **lst, void (*del) (void *));
 
 void	gc_lstdel_front(t_list **lst, void (*del) (void *));
 
+//Functions from file : gc_structure.c
+t_gc	*getgc(void);
+
+int		gc_realloc(void);
+
+//Functions from file : gc_helpers.c
+size_t	gc_len(void);
+
+void	print_collector(void);
+
+void	*wrap_pointer(void *ptr);
+
 //Functions from file : t_str.c
 int		t_str_add(t_str *str, t_cchar c);
 
@@ -92,11 +96,9 @@ int		t_str_alloc(t_str *str, t_csizet size);
 
 int		t_str_realloc(t_str *str);
 
-//Functions from file : gc_helpers.c
-size_t	gc_len(void);
+//Functions from file : gc_array.c
+void	free_array_size(void **array, t_csizet size);
 
-void	print_collector(void);
-
-void	*wrap_pointer(void *ptr);
+void	free_array_null(void **array);
 
 #endif

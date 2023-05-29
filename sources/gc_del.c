@@ -6,7 +6,7 @@
 /*   By: nsainton <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 11:29:21 by nsainton          #+#    #+#             */
-/*   Updated: 2023/05/08 14:58:00 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/05/29 16:36:45 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,29 @@ void	free_gc(void)
 	}
 	free(collector->memzones);
 	ft_bzero(collector, sizeof * collector);
+}
+
+void	free_from(void *node)
+{
+	t_gc	*collector;
+	size_t	index;
+	size_t	newlen;
+
+	collector = getgc();
+	if (! collector)
+		return ;
+	index = 0;
+	while (index < collector->len && *(collector->memzones + index) != node)
+		index ++;
+	newlen = collector->len - index - 1;
+	index ++;
+	while (index < collector->len && *(collector->memzones + index))
+	{
+		if (*(collector->memzones + index))
+			free(*(collector->memzones + index));
+		index ++;
+	}
+	collector->len = newlen;
 }
 
 void	free_nodes(t_csizet number)
