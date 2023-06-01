@@ -61,6 +61,9 @@ char	*gc_substr(t_cchar *s, t_uint start, size_t len);
 //Functions from file : split.c
 char	**gc_split(t_cchar *s, char c);
 
+//Functions from file : itoa.c
+char	*gc_itoa(int n);
+
 //Functions from file : gc_structure.c
 t_gc	*getgc(void);
 
