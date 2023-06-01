@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:17:10 by nsainton          #+#    #+#             */
-/*   Updated: 2023/05/26 13:03:23 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:13:53 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,16 @@ int	allocate_tab(t_tab *tab, t_csizet size, t_csizet elemsize)
 int	realloc_tab(t_tab *tab, t_csizet newsize)
 {	
 	void	*zones;
+	size_t	size;
+	size_t	esize;
 
-	zones = gcrealloc(tab->tab, tab->size * tab->elemsize, newsize\
-	* tab->elemsize);
+	esize = tab->elemsize;
+	size = tab->size;
+	zones = gcrealloc(tab->tab, size * esize, newsize * esize);
 	if (! zones)
 		return (COLLECTOR_ALLOCATION_ERROR);
 	tab->tab = zones;
 	tab->size = newsize;
-	ft_bzero(zones + tab->len * tab->elemsize\
-	, (newsize - tab->len) * tab->elemsize);
+	ft_bzero(zones + tab->len * esize, (newsize - tab->len) * esize);
 	return (COLLECTOR_NO_ERROR);
 }

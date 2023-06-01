@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:24:39 by nsainton          #+#    #+#             */
-/*   Updated: 2023/05/26 13:56:37 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:07:43 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ void	delelem_tab(t_tab *tab, void (*del)(void *))
 void	del_tab(t_tab *tab)
 {
 	free_node(tab->tab);
-	ft_bzero(tab, sizeof *tab);
+	ft_bzero(tab, sizeof * tab);
 }
