@@ -6,7 +6,7 @@
 /*   By: nsainton <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 11:29:21 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/01 16:07:10 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:43:11 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ void	free_from(void *node)
 	if (! collector)
 		return ;
 	index = get_index(node);
-	free_nodes(collector->len + 1 - index);
+	if (index >= collector->len)
+		return ;
+	free_nodes(collector->len - 1 - index);
 }
 
 void	free_nodes(t_csizet number)
