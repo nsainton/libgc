@@ -6,7 +6,7 @@
 #    By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/23 06:01:21 by nsainton          #+#    #+#              #
-#    Updated: 2023/05/08 17:20:51 by nsainton         ###   ########.fr        #
+#    Updated: 2023/06/20 17:30:12 by nsainton         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -119,7 +119,7 @@ $(OBJS_DIR):
 	mkdir -p $(OBJS_DIR)
 
 debug:
-	make re GG=-g3 OPT=-O0
+	make re GG=-g3 OPT=-O0 CC=gcc
 
 clean:
 	rm -rf $(OBJS_DIR)
