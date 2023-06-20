@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 17:17:28 by nsainton          #+#    #+#             */
-/*   Updated: 2023/05/08 14:55:56 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:13:31 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,20 @@ void	print_collector(void)
 		index ++;
 	}
 	ft_dprintf(STDERR_FILENO, "Collector Printed\n");
+}
+
+size_t	get_index(void *node)
+{
+	t_gc	*collector;
+	size_t	index;
+
+	collector = getgc();
+	if (! collector)
+		return (SIZE_MAX);
+	index = 0;
+	while (index < collector->len && *(collector->memzones + index) != node)
+		index ++;
+	return (index);
 }
 
 void	*wrap_pointer(void *ptr)

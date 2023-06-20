@@ -6,7 +6,7 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 10:53:57 by nsainton          #+#    #+#             */
-/*   Updated: 2023/05/08 14:58:54 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/01 15:49:48 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,13 @@ t_gc	*getgc(void)
 
 	if (collector.memzones)
 		return (&collector);
+	ft_bzero(&collector, sizeof collector);
 	if (! TRASH_SIZE)
 		return (NULL);
 	collector.memzones = ft_calloc(TRASH_SIZE, sizeof * collector.memzones);
 	if (! collector.memzones)
-	{
-		ft_bzero(&collector, sizeof collector);
 		return (NULL);
-	}
 	collector.size = TRASH_SIZE;
-	collector.len = 0;
 	return (&collector);
 }
 
