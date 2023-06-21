@@ -6,16 +6,20 @@
 /*   By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:17:10 by nsainton          #+#    #+#             */
-/*   Updated: 2023/06/01 16:13:53 by nsainton         ###   ########.fr       */
+/*   Updated: 2023/06/21 22:52:20 by nsainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libgc.h"
 
-int	allocate_tab(t_tab *tab, t_csizet size, t_csizet elemsize)
+int	allocate_tab(t_tab *tab, size_t size, t_csizet elemsize)
 {
 	void	*zones;
 
+	if (! (size && elemsize))
+		return (COLLECTOR_ALLOCATION_ERROR);
+	if (size == 1)
+		size += 1;
 	zones = gccalloc(size, elemsize);
 	if (! zones)
 		return (COLLECTOR_ALLOCATION_ERROR);
