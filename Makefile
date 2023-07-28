@@ -6,7 +6,7 @@
 #    By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/23 06:01:21 by nsainton          #+#    #+#              #
-#    Updated: 2023/06/20 17:30:12 by nsainton         ###   ########.fr        #
+#    Updated: 2023/07/28 14:23:05 by nsainton         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,10 @@ SRCS_DIR= sources
 
 SRCS_SUBDIRS:= $(shell find $(SRCS_DIR) -type d)
 
-SRCS_NAMES:= $(subst $(SRCS_DIR)/,, $(foreach dir, $(SRCS_SUBDIRS), $(wildcard $(dir)/*.c)))
+SRCS_NAMES:= gc_alloc.c gc_array.c gc_del.c gc_helpers.c gc_management.c \
+			gc_structure.c t_tab/allocation.c t_tab/management.c t_str/t_str.c \
+			t_list/lst_add.c t_list/lst_free.c wrappers/itoa.c wrappers/split.c \
+			wrappers/strs.c
 
 SRCS= $(addprefix $(SRCS_DIR)/,$(SRCS_NAMES))
 
@@ -146,6 +149,7 @@ git:
 
 maketest:
 	echo $(LIBS_DIR)
+	echo $(SRCS_NAMES)
 
 .PHONY: all debug clean fclean re git
 .SILENT:
