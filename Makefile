@@ -6,7 +6,7 @@
 #    By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/23 06:01:21 by nsainton          #+#    #+#              #
-#    Updated: 2023/08/07 19:59:58 by nsainton         ###   ########.fr        #
+#    Updated: 2023/08/07 20:33:01 by nsainton         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -113,18 +113,12 @@ export compiled_header
 
 all : stable
 
-$(NAME) :
+$(NAME) : $(OBJS)
 	$(AR) $(NAME) $(OBJS)
 	echo "$(BEGIN)$(GREEN)m"
 	echo "$$libgc_header"
 	echo "$$compiled_header"
 	echo "$(END)"
-
-$(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c | $(LFT_DIR)
-	[ -d $(@D) ] || $(MK) $(@D)
-	arg="$$(dirname $(DEPS_DIR)/$*)"; \
-	[ -d $$arg ] || $(MK) $$arg
-	$(CC) $(CFLAGS) -MD -MF $(DEPS_DIR)/$*.d -c $< -o $@
 
 $(DEBUG_OBJS_DIR)/%.o : $(SRCS_DIR)/%.c $(INCS) | $(LFT_DIR)
 	[ -d $(@D) ] || $(MK) $(@D)
