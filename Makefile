@@ -6,13 +6,19 @@
 #    By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/23 06:01:21 by nsainton          #+#    #+#              #
-#    Updated: 2023/08/07 20:33:01 by nsainton         ###   ########.fr        #
+#    Updated: 2023/08/07 20:36:07 by nsainton         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libgc.a
 
 SRCS_DIR = sources
+
+SHELL = /bin/sh #To avoid troubles on system where SHELL variable is inherited
+				#From the environment
+
+.SUFFIXES: #To clear the suffix list
+.SUFFIXES: .c .o .a #To specify only the suffixes we need in this particular Makefile
 
 SRCS_SUBDIRS := $(shell find $(SRCS_DIR) -type d)
 
