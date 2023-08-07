@@ -6,39 +6,55 @@
 #    By: nsainton <nsainton@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/23 06:01:21 by nsainton          #+#    #+#              #
-#    Updated: 2023/06/20 17:30:12 by nsainton         ###   ########.fr        #
+#    Updated: 2023/08/07 19:59:58 by nsainton         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME= libgc.a
+NAME = libgc.a
 
-SRCS_DIR= sources
+SRCS_DIR = sources
 
-SRCS_SUBDIRS:= $(shell find $(SRCS_DIR) -type d)
+SRCS_SUBDIRS := $(shell find $(SRCS_DIR) -type d)
 
-SRCS_NAMES:= $(subst $(SRCS_DIR)/,, $(foreach dir, $(SRCS_SUBDIRS), $(wildcard $(dir)/*.c)))
+SRCS_NAMES := $(subst $(SRCS_DIR)/,, $(foreach dir, $(SRCS_SUBDIRS), $(wildcard $(dir)/*.c)))
 
-SRCS= $(addprefix $(SRCS_DIR)/,$(SRCS_NAMES))
+SRCS = $(addprefix $(SRCS_DIR)/,$(SRCS_NAMES))
 
-OBJS_DIR= objects
+OBJS_DIR = objects
 
-OBJS_NAMES= $(SRCS_NAMES:.c=.o)
+OBJS_NAMES := $(SRCS_NAMES:.c=.o)
 
-OBJS= $(addprefix $(OBJS_DIR)/, $(OBJS_NAMES))
+OBJS = $(addprefix $(OBJS_DIR)/, $(OBJS_NAMES))
+
+STABLE_OBJS_DIR := objects
+
+STABLE_OBJS_NAMES := $(OBJS_NAMES)
+
+STABLE_OBJS := $(addprefix $(STABLE_OBJS_DIR)/, $(OBJS_NAMES))
+
+DEBUG_OBJS_DIR := objects_debug
+
+DEBUG_OBJS_NAMES := $(OBJS_NAMES)
+
+DEBUG_OBJS := $(addprefix $(DEBUG_OBJS_DIR)/, $(OBJS_NAMES))
 
 DEPS_DIR := dependancies
 
 DEPS_NAME := $(patsubst %.c, $(DEPS_DIR)/%.d, $(SRCS_NAMES))
 
-INC_DIR= includes
+INC_DIR = includes
 
-CC= cc
+INC_NAMES := $(subst $(INC_DIR)/,, $(wildcard $(INC_DIR)/*))
 
-CFLAGS= -Wall -Wextra -Werror
+INCS := $(addprefix $(INC_DIR)/, $(INC_NAMES))
 
-AR= ar -rc
+CC = cc
 
-MK:= mkdir -p
+CFLAGS = -Wall -Wextra -Werror
+
+AR = ar -rc
+
+MK := mkdir -p
 
 LIBS := libs
 
@@ -93,58 +109,72 @@ define compiled_header
 endef
 export compiled_header
 
-all:
-	$(MAKE) $(NAME)
+.DEFAULT_GOAL := stable
 
-$(NAME): $(OBJS)
+all : stable
+
+$(NAME) :
 	$(AR) $(NAME) $(OBJS)
 	echo "$(BEGIN)$(GREEN)m"
 	echo "$$libgc_header"
 	echo "$$compiled_header"
 	echo "$(END)"
 
-$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(LFT_DIR)
+$(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c | $(LFT_DIR)
 	[ -d $(@D) ] || $(MK) $(@D)
 	arg="$$(dirname $(DEPS_DIR)/$*)"; \
 	[ -d $$arg ] || $(MK) $$arg
-	$(CC) $(CFLAGS) $(GG) $(OPT) -MD -MF $(DEPS_DIR)/$*.d -c $< -o $@
+	$(CC) $(CFLAGS) -MD -MF $(DEPS_DIR)/$*.d -c $< -o $@
 
-$(DEPS_DIR):
+$(DEBUG_OBJS_DIR)/%.o : $(SRCS_DIR)/%.c $(INCS) | $(LFT_DIR)
+	[ -d $(@D) ] || $(MK) $(@D)
+	arg="$$(dirname $(DEPS_DIR)/$*)"; \
+	[ -d $$arg ] || $(MK) $$arg
+	$(CC) $(CFLAGS) -MD -MF $(DEPS_DIR)/$*.d -c $< -o $@
+
+$(STABLE_OBJS_DIR)/%.o : $(SRCS_DIR)/%.c $(INCS) | $(LFT_DIR)
+	[ -d $(@D) ] || $(MK) $(@D)
+	arg="$$(dirname $(DEPS_DIR)/$*)"; \
+	[ -d $$arg ] || $(MK) $$arg
+	$(CC) $(CFLAGS) -MD -MF $(DEPS_DIR)/$*.d -c $< -o $@
+
+$(DEPS_DIR) :
 	$(MK) $(DEPS_DIR)
 
-$(LFT_DIR):
+$(LFT_DIR) :
 	git clone $(LFT_URL) $@
 
-$(OBJS_DIR):
-	mkdir -p $(OBJS_DIR)
+stable : OBJS := $(STABLE_OBJS)
+stable : $(STABLE_OBJS) $(NAME)
 
-debug:
-	make re GG=-g3 OPT=-O0 CC=gcc
+debug : CFLAGS += -g3 -O0
+debug : OBJS := $(DEBUG_OBJS)
+debug : CC := gcc
+debug : $(DEBUG_OBJS) $(NAME)
 
-clean:
+clean :
 	rm -rf $(OBJS_DIR)
 	echo "$(BEGIN)$(RED)mObjects have been successfully removed$(END)"
 
-oclean:
+oclean :
 	rm -f $(NAME)
 	echo "$(BEGIN)$(RED);$(UNDERLINED)m$(NAME)\
 	$(BEGIN)$(NORMAL);$(CYAN)m has been successfully removed$(END)"
 
-lclean:
+lclean :
 	$(RM) -r $(LIBS_DIR)
 	echo "$(BEGIN)$(PURPLE)m libraries have been successfully removed$(END)"
-fclean:
-	$(MAKE) clean
-	$(MAKE) oclean
 
-re: fclean all
+fclean : clean oclean
 
-git:
+re : fclean all
+
+git :
 	git add --all
-	git commit
-	git push origin dev
+	export LC_TIME=en_US.UTF-8 && git commit -m "Automatic commit on $$(date)"
+	git push
 
-maketest:
+maketest :
 	echo $(LIBS_DIR)
 
 .PHONY: all debug clean fclean re git
